@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rectangle Area Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <h2>Rectangle Area Calculator</h2>
+        <h3>What is the area??</h3>
+        <div class="row">
+            <div>
+                <label for="x">X (Side 1)</label>
+                <input type="text" id="x" name="x" style="width: 100px">
+            </div>
+            <div>
+                <label for="y">Y (Side 2)</label>
+                <input type="text" id="y" name="y" style="width: 100px">
+            </div>
+        </div>
+        <button id="calc">Calculate</button>
+        <button id="clear">Clear</button>
+        <p class="hidden"></p>
+    </div>
+</div>
+<script>
+    const x = document.getElementById('x');
+    const y = document.getElementById('y');
+    const ans = document.querySelector('p');
+    const calculateButton = document.getElementById('calc')
+    const clearButton = document.getElementById("clear")
+
+    function checkRect (num1, num2){
+        let area = num1 * num2;
+        if( num1 == num2){
+            return false;
+        }
+        if(area){
+            return true;
+        }
+    }
+    function checkIsValid(num){
+        if (isNaN(num)){
+            return false;
+        }
+        if (num <=  0) {
+            return false;
+        }
+        return true;
+    }
+
+    calculateButton.addEventListener('click', function (e){
+        let sideA = +x.value;
+        let sideB = +y.value;
+        let area = sideA * sideB;
+        ans.classList.remove("hidden");
+        if (!checkIsValid(sideA) || !checkIsValid(sideB)) {
+            ans.textContent = 'Invalid Inputs';
+            return;
+        }
+        if(checkRect(sideA, sideB)){
+            ans.textContent =`The area is ${area}` ;
+            return;
+        }
+        ans.textContent = 'Inputs do NOT create a valid rectangle';
+    })
+
+    clearButton.addEventListener('click', function(e){
+        x.value = " ";
+        y.value = " ";
+        ans.classList.add("hidden");
+    })
+</script>
+</body>
+</html>
